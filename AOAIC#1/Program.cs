@@ -12,13 +12,14 @@ var config = new ConfigurationBuilder()
 
 string? myAOAIEndpoint = config["AzureOpenAIEndpoint"];
 string? myAOAIKey = config["AzureOpenAIKey"];
-Console.WriteLine(myAOAIEndpoint);
-Console.WriteLine(myAOAIKey);
+// Console.WriteLine(myAOAIEndpoint);
+// Console.WriteLine(myAOAIKey);
 
 var kernel = Kernel.Builder.Build();
 
 // Azure OpenAI
-kernel.Config.AddAzureTextCompletionService("davinci-azure", "text-davinci-003", myAOAIEndpoint!, myAOAIKey);
+//  0.12.207.1-preview. kernel.Config.AddAzureTextCompletionService("davinci-azure", "text-davinci-003", myAOAIEndpoint!, myAOAIKey);
+kernel.Config.AddAzureTextCompletionService("text-davinci-003", myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
 
 // Alternative using OpenAI
 // kernel.Config.AddOpenAITextCompletionService("davinci-openai",
@@ -26,11 +27,13 @@ kernel.Config.AddAzureTextCompletionService("davinci-azure", "text-davinci-003",
 //     "...your OpenAI API Key..."       // OpenAI API Key
 // );
 
+
 var prompt = @"{{$input}}
 
 One line TLDR with the fewest words.";
 
 var summarize = kernel.CreateSemanticFunction(prompt);
+
 
 string text1 = @"
 1st Law of Thermodynamics - Energy cannot be created or destroyed.
