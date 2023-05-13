@@ -10,8 +10,10 @@ var config = new ConfigurationBuilder()
     .Build();
 
 
+string? myAzureOpenAIDeployment = config["AzureOpenAIDeployment"];
 string? myAOAIEndpoint = config["AzureOpenAIEndpoint"];
 string? myAOAIKey = config["AzureOpenAIKey"];
+
 // Console.WriteLine(myAOAIEndpoint);
 // Console.WriteLine(myAOAIKey);
 
@@ -19,7 +21,8 @@ var kernel = Kernel.Builder.Build();
 
 // Azure OpenAI
 //  0.12.207.1-preview. kernel.Config.AddAzureTextCompletionService("davinci-azure", "text-davinci-003", myAOAIEndpoint!, myAOAIKey);
-kernel.Config.AddAzureTextCompletionService("text-davinci-003", myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
+//kernel.Config.AddAzureTextCompletionService("davinci-azure", "text-davinci-003", myAOAIEndpoint!, myAOAIKey);
+kernel.Config.AddAzureTextCompletionService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
 
 // Alternative using OpenAI
 // kernel.Config.AddOpenAITextCompletionService("davinci-openai",
@@ -34,6 +37,10 @@ One line TLDR with the fewest words.";
 
 var summarize = kernel.CreateSemanticFunction(prompt);
 
+string textBrady = @"
+Tom Brady won a super bowl in the first year he played in the NFL.
+Tom Brady won the super bowl 9 times in his 20 year career.
+He retired after winning a super bowl with the Tampa Bay Bucs.";
 
 string text1 = @"
 1st Law of Thermodynamics - Energy cannot be created or destroyed.
@@ -48,6 +55,10 @@ string text2 = @"
 Console.WriteLine(await summarize.InvokeAsync(text1));
 
 Console.WriteLine(await summarize.InvokeAsync(text2));
+
+Console.WriteLine(await summarize.InvokeAsync(textBrady));
+
+
 
 // Output:
 //   Energy conserved, entropy increases, zero entropy at 0K.
