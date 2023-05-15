@@ -64,3 +64,26 @@ Console.WriteLine(await summarize.InvokeAsync(textBrady));
 //   Energy conserved, entropy increases, zero entropy at 0K.
 //   Objects move in response to forces.
 
+
+string translationPrompt = @"{{$input}}
+
+Translate the text to math.";
+
+string summarizePrompt = @"{{$input}}
+
+Give me a TLDR with the fewest words.";
+
+var translator = kernel.CreateSemanticFunction(translationPrompt);
+var summarize2 = kernel.CreateSemanticFunction(summarizePrompt);
+
+string inputText = @"
+1st Law of Thermodynamics - Energy cannot be created or destroyed.
+2nd Law of Thermodynamics - For a spontaneous process, the entropy of the universe increases.
+3rd Law of Thermodynamics - A perfect crystal at zero Kelvin has zero entropy.";
+
+// Run two prompts in sequence (prompt chaining)
+var output = await kernel.RunAsync(inputText, translator, summarize2);
+
+Console.WriteLine(output);
+
+// Output: ΔE = 0, ΔSuniv > 0, S = 0 at 0K.
