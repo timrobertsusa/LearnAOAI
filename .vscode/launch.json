@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/AOAIC#1/bin/Debug/net7.0/AOAIC#1.dll",
+            "program": "${workspaceFolder}/AOAIC_1/bin/Debug/net7.0/AOAIC_1.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/AOAIC#1",
+            "cwd": "${workspaceFolder}/AOAIC_1",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false

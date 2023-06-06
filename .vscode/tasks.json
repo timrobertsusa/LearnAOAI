@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/AOAIC#1/AOAIC#1.csproj",
+                "${workspaceFolder}/AOAIC_1/AOAIC_1.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/AOAIC#1/AOAIC#1.csproj",
+                "${workspaceFolder}/AOAIC_1/AOAIC_1.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/AOAIC#1/AOAIC#1.csproj"
+                "${workspaceFolder}/AOAIC_1/AOAIC_1.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
