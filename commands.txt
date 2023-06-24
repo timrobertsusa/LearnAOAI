@@ -7,6 +7,9 @@ dotnet add package Microsoft.Extensions.Configuration.UserSecrets
 
 dotnet add package Microsoft.SemanticKernel --version 0.16.230615.1-preview
 using Microsoft.SemanticKernel;
+Microsoft.SemanticKernel, 0.9.61.1-preview"
+dotnet add package Microsoft.SemanticKernel --version 0.9.61.1-preview
+dotnet add package Microsoft.SemanticKernel --version 0.13.442.1-preview
 
 
 docker pull qdrant/qdrant

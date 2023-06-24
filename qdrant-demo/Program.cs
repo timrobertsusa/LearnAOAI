@@ -1,6 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.UserSecrets;
+//using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.SemanticKernel;
+//using Microsoft.SemanticKernel.Memory;
+//using Microsoft.SemanticKernel.KernelExtensions;
+//using System.IO;
+//using Microsoft.SemanticKernel.Configuration;
+//using Microsoft.SemanticKernel.SemanticFunctions;
+//using Microsoft.SemanticKernel.CoreSkills;
+
 
 
 var config = new ConfigurationBuilder()
@@ -17,11 +24,37 @@ Console.WriteLine(myAOAIKey);
 
 var kernel = Kernel.Builder.Build();
 
-// Azure OpenAI
-//kernel.Config.AddAzureTextCompletionService("davinci-azure", "text-davinci-003", myAOAIEndpoint!, myAOAIKey);
 kernel.Config.AddAzureTextCompletionService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
+kernel.Config.AddAzureTextEmbeddingGenerationService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
 
+// var kernel =  Microsoft.SemanticKernel.Kernel.Builder
+// .Configure(c =>
+// {    
+//     c.AddAzureTextCompletionService(myAzureOpenAIDeployment,myAOAIEndpoint,myAOAIKey);        
+//     c.AddAzureTextEmbeddingGenerationService(myAzureOpenAIDeployment,myAOAIEndpoint,myAOAIKey);
+    
+// })
+// .WithMemoryStorage(new VolatileMemoryStore())
+// .Build();
 
+const string memoryCollectionName = "Facts About Me";
+
+await kernel.Memory.SaveInformationAsync(memoryCollectionName, id: "LinkedIn Bio", 
+    text: "I currently work in the hotel industry at the front desk. I won the best team player award.");
+
+await kernel.Memory.SaveInformationAsync(memoryCollectionName, id: "LinkedIn History", 
+    text: "I have worked as a tourist operator for 8 years. I have also worked as a banking associate for 3 years.");
+
+await kernel.Memory.SaveInformationAsync(memoryCollectionName, id: "Recent Facebook Post", 
+    text: "My new dog Trixie is the cutest thing you've ever seen. She's just 2 years old.");
+    
+await kernel.Memory.SaveInformationAsync(memoryCollectionName, id: "Old Facebook Post", 
+    text: "Can you believe the size of the trees in Yellowstone? They're huge! I'm so committed to forestry concerns.");
+
+Console.WriteLine("Four GIGANTIC vectors were generated just now from those 4 pieces of text above.");
+
+Console.WriteLine("Press enter to continue...");
+Console.ReadLine();
 
 
 var prompt = @"{{$input}}
