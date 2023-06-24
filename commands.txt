@@ -10,7 +10,7 @@ using Microsoft.SemanticKernel;
 Microsoft.SemanticKernel, 0.9.61.1-preview"
 dotnet add package Microsoft.SemanticKernel --version 0.9.61.1-preview
 dotnet add package Microsoft.SemanticKernel --version 0.13.442.1-preview
-
+ dotnet remove package Microsoft.SemanticKernel
 
 docker pull qdrant/qdrant
 docker run -p 6333:6333 \
