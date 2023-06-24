@@ -7,12 +7,20 @@ dotnet add package Microsoft.Extensions.Configuration.UserSecrets
 
 dotnet add package Microsoft.SemanticKernel --version 0.16.230615.1-preview
 using Microsoft.SemanticKernel;
-Microsoft.SemanticKernel, 0.9.61.1-preview"
-dotnet add package Microsoft.SemanticKernel --version 0.9.61.1-preview
-dotnet add package Microsoft.SemanticKernel --version 0.13.442.1-preview
- dotnet remove package Microsoft.SemanticKernel
+using Microsoft.SemanticKernel.Memory;
+
+--Microsoft.SemanticKernel, 0.9.61.1-preview"
+--dotnet add package Microsoft.SemanticKernel --version 0.9.61.1-preview
+--dotnet add package Microsoft.SemanticKernel --version 0.13.442.1-preview
+--dotnet remove package Microsoft.SemanticKernel
 
 docker pull qdrant/qdrant
 docker run -p 6333:6333 \
    -v $(pwd)/qdrant_storage:/qdrant/storage \
    qdrant/qdrant
+http://localhost:6333
+http://localhost:6333/dashboard
+docker ps
+docker container stop f56849769746  
+
+dotnet add package Microsoft.SemanticKernel.Connectors.Memory.Qdrant --version 0.16.230615.1-preview

@@ -2,6 +2,7 @@
 //using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Memory;
+using Microsoft.SemanticKernel.Connectors.Memory.Qdrant;
 //using Microsoft.SemanticKernel.KernelExtensions;
 //using System.IO;
 //using Microsoft.SemanticKernel.Configuration;
@@ -28,13 +29,16 @@ Console.WriteLine(myAOAIKey);
 // kernel.Config.AddAzureTextCompletionService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
 // kernel.Config.AddAzureTextEmbeddingGenerationService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
 
+//string MemoryCollectionName = "qdrant-test";
+QdrantMemoryStore memoryStore = new("http://localhost:6333", 1536);
+
 
 IKernel kernel = Kernel.Builder
             // .WithLogger(ConsoleLogger.Log)
             .WithAzureTextCompletionService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!)
             .WithAzureTextEmbeddingGenerationService(myAzureOpenAIEmbedDeployment!, myAOAIEndpoint!, myAOAIKey!)            
-            //.WithMemoryStorage(memoryStore)
-            .WithMemoryStorage(new VolatileMemoryStore())
+            .WithMemoryStorage(memoryStore)
+            //.WithMemoryStorage(new VolatileMemoryStore())
             //.WithQdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536) // This method offers an alternative approach to registering Qdrant memory store.
             .Build();
 
