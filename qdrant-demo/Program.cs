@@ -20,7 +20,7 @@ string? myAzureOpenAIEmbedDeployment = config["AzureOpenAIEmbedDeployment"];
 string? myAzureOpenAIDeployment = config["AzureOpenAIDeployment"];
 string? myAOAIEndpoint = config["AzureOpenAIEndpoint"];
 string? myAOAIKey = config["AzureOpenAIKey"];    
-
+string? myQdrantEndpoint = config["QdrantEndpoint"];
 
 Console.WriteLine(myAOAIEndpoint);
 Console.WriteLine(myAOAIKey);
@@ -30,7 +30,8 @@ Console.WriteLine(myAOAIKey);
 // kernel.Config.AddAzureTextEmbeddingGenerationService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
 
 //string MemoryCollectionName = "qdrant-test";
-QdrantMemoryStore memoryStore = new("http://localhost:6333", 1536);
+int qdrantVectorSize = 1536;
+QdrantMemoryStore memoryStore = new(myQdrantEndpoint!, qdrantVectorSize);
 
 
 IKernel kernel = Kernel.Builder
