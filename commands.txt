@@ -1,0 +1,15 @@
+-- qdrant
+dotnet new console -o qdrant-demo
+dotnet add package Microsoft.Extensions.Configuration 
+dotnet add package Microsoft.Extensions.Configuration.Json
+dotnet add package Microsoft.Extensions.Configuration.EnvironmentVariables
+dotnet add package Microsoft.Extensions.Configuration.UserSecrets
+
+dotnet add package Microsoft.SemanticKernel --version 0.16.230615.1-preview
+using Microsoft.SemanticKernel;
+
+
+docker pull qdrant/qdrant
+docker run -p 6333:6333 \
+   -v $(pwd)/qdrant_storage:/qdrant/storage \
+   qdrant/qdrant
