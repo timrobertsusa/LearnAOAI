@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 //using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.SemanticKernel;
-//using Microsoft.SemanticKernel.Memory;
+using Microsoft.SemanticKernel.Memory;
 //using Microsoft.SemanticKernel.KernelExtensions;
 //using System.IO;
 //using Microsoft.SemanticKernel.Configuration;
@@ -15,27 +15,41 @@ var config = new ConfigurationBuilder()
     .AddUserSecrets<Program>()
     .Build();
 
+string? myAzureOpenAIEmbedDeployment = config["AzureOpenAIEmbedDeployment"];
 string? myAzureOpenAIDeployment = config["AzureOpenAIDeployment"];
 string? myAOAIEndpoint = config["AzureOpenAIEndpoint"];
-string? myAOAIKey = config["AzureOpenAIKey"];
+string? myAOAIKey = config["AzureOpenAIKey"];    
+
 
 Console.WriteLine(myAOAIEndpoint);
 Console.WriteLine(myAOAIKey);
 
-var kernel = Kernel.Builder.Build();
+// var kernel = Kernel.Builder.Build();
+// kernel.Config.AddAzureTextCompletionService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
+// kernel.Config.AddAzureTextEmbeddingGenerationService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
 
-kernel.Config.AddAzureTextCompletionService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
-kernel.Config.AddAzureTextEmbeddingGenerationService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!);  // 0.13.442.1-preview.
+
+IKernel kernel = Kernel.Builder
+            // .WithLogger(ConsoleLogger.Log)
+            .WithAzureTextCompletionService(myAzureOpenAIDeployment!, myAOAIEndpoint!, myAOAIKey!)
+            .WithAzureTextEmbeddingGenerationService(myAzureOpenAIEmbedDeployment!, myAOAIEndpoint!, myAOAIKey!)            
+            //.WithMemoryStorage(memoryStore)
+            .WithMemoryStorage(new VolatileMemoryStore())
+            //.WithQdrantMemoryStore(Env.Var("QDRANT_ENDPOINT"), 1536) // This method offers an alternative approach to registering Qdrant memory store.
+            .Build();
+
 
 // var kernel =  Microsoft.SemanticKernel.Kernel.Builder
 // .Configure(c =>
 // {    
-//     c.AddAzureTextCompletionService(myAzureOpenAIDeployment,myAOAIEndpoint,myAOAIKey);        
-//     c.AddAzureTextEmbeddingGenerationService(myAzureOpenAIDeployment,myAOAIEndpoint,myAOAIKey);
+//     c.AddTextCompletionService()
+//     c.AddAzureTextCompletionService(myAzureOpenAIDeployment!,myAOAIEndpoint!,myAOAIKey!);        
+//     c.AddAzureTextEmbeddingGenerationService(myAzureOpenAIDeployment!,myAOAIEndpoint!,myAOAIKey!);
     
 // })
 // .WithMemoryStorage(new VolatileMemoryStore())
 // .Build();
+
 
 const string memoryCollectionName = "Facts About Me";
 
