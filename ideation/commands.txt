@@ -1,0 +1,3 @@
+added secrets json data
+
+dotnet add package Microsoft.SemanticKernel --version 0.16.230615.1-preview
