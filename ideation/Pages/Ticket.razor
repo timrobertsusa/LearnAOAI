@@ -1,10 +1,65 @@
-﻿@page "/Ticket"
+﻿<PageTitle>Ticket</PageTitle>
+@page "/Ticket"
 
 <PageTitle>Ticket</PageTitle>
 
-<button>    
-    hi there
-</button>
-
 <h1>Welcome to the Ticket Page!!</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Issue ID</th>
+            <th>Customer Name</th>
+            <th>Issue Description</th>
+            <th>Date Reported</th>
+             <th>Satisfaction</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var issue in Issues)
+        {
+            <tr>
+                <td>@issue.Id</td>
+                <td>@issue.CustomerName</td>
+                <td>@issue.Description</td>
+                @* <td>@issue.DateReported.ToShortDateString()</td> *@
+                <td>@issue.DateReported</td>
+               @* <td>@issue.Satisfaction()</td> *@
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    public class Issue
+    {
+        public int Id { get; set; }
+        public string? CustomerName { get; set; }
+        public string? Description { get; set; }
+        public DateTime DateReported { get; set; }
+        public string? Satisfaction { get; set; }
+    }
+
+    protected List<Issue> Issues { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        Issues = new List<Issue>();
+
+        for (int i = 1; i <= 200; i++)
+        {
+            Issues.Add(new Issue
+            {
+                Id = i,
+                CustomerName = $"Customer {i}",
+                Description = $"Issue {i} description",
+                DateReported = DateTime.Now.AddDays(-i)
+                @* Satisfaction = $"Satisfaction {i} description" *@
+            });
+        }
+    }
+}
+
+
+
 
