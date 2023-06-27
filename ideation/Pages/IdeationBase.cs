@@ -1,7 +1,10 @@
-namespace BlazorWebApp.Pages
+
+using Microsoft.AspNetCore.Components;
+
+namespace ideation.Pages
 {
 
-    public class CreateRTBase : ComponentBase
+    public class IdeationBase : ComponentBase
     {
     }
 }
