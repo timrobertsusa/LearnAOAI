@@ -56,7 +56,7 @@ IKernel kernel = Kernel.Builder
 // .Build();
 
 
-const string memoryCollectionName = "Facts About Me";
+const string memoryCollectionName = "Facts About Tim";
 
 await kernel.Memory.SaveInformationAsync(memoryCollectionName, id: "LinkedIn Bio", 
     text: "I currently work in the hotel industry at the front desk. I won the best team player award.");
